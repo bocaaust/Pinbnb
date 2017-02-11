@@ -6754,4 +6754,12 @@ button.close {
     display: none !important;
   }
 }
+.pin {
+	background-image: url(img/pushpin.png);
+background-repeat: no-repeat;
+background-size: 6px 6px;
+background-position: right 2px top 2px;
+	border: black 1px solid;
+	border-radius: 5px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
