@@ -229,7 +229,7 @@ function parseResponse(resp) {
   if (resp.status_code === 'OK') {
     var results = resp.results;
     tags = results[0].result.tag.classes;
-	 tagCloud(results[0].result.tag.classes);
+	 //tagCloud(results[0].result.tag.classes);
   } else {
     console.log('Sorry, something is wrong.');
   }
