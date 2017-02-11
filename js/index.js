@@ -294,6 +294,8 @@ function addNode(imgurl, tags){
 		textBox.style.display = "inline";
 		item.appendChild(textBox);
 	}
+	var exitButton = document.createElement("A");
+	exitButton.className += "btn";
 	pinboard.appendChild(item);
 }
 
