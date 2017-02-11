@@ -276,6 +276,7 @@ function addNode(imgurl, tags){
 	var pinboard = document.getElementById('pinboard');
 	var item = document.createElement("DIV");
 	item.className += "animated fadeIn first col-xs-12 col-sm-4 well";
+	item.style.margin = "8px";
 	var hero = document.createElement("IMG");
 	hero.style.width = "100%";
 	hero.style.padding = "8px";

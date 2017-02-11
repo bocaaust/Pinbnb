@@ -48,5 +48,14 @@
 
 	<!-- Include all compiled plugins (below), or include individual files as needed --> 
 	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+		if (localStorage.getItem('pins') != null){
+			var pins = JSON.parse(localStorage.getItem('pins'));
+			for (var i = 0; i < pins[1].length; i++){
+				addNode(pins[0][i],pins[1][i]);
+			}
+		}
+	  </script>
   </body>
 </html>
+
