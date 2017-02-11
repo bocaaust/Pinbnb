@@ -310,7 +310,15 @@ function reset(){
 */
 
 function addNode(imgurl){
-	
+	var pinboard = document.getElementById('pinboard');
+	var item = document.createElement("DIV");
+	item.className += "animated fadeIn first col-xs-12 col-sm-4 well";
+	var hero = document.createElement("IMG");
+	hero.style.width = "100%";
+	hero.style.padding = "8px";
+	hero.src = imgurl;
+	item.appendChild(hero);
+	pinboard.appendChild(item);
 }
 
 function run(imgurl) {
