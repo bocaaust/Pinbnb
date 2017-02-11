@@ -289,7 +289,7 @@ function addNode(imgurl, tags){
 		var textBox = document.createElement("H4");
 		var text = document.createTextNode(tags[i] + ', ');
 		textBox.appendChild(text);
-		textBox.style.fontSize = (8  + "px";
+		textBox.style.fontSize = (8  + "px");
 		textBox.style.display = "inline";
 		item.appendChild(textBox);
 	}
@@ -304,6 +304,8 @@ function run(imgurl) {
 		pins[0][0] = imgurl;
 		pins[1] = [];
 	}else{
+		
+		var pins = JSON.parse(localStorage.getItem('pins'));
 		pins[0][pins.length] = imgurl;
 	}
 	
