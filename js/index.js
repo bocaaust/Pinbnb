@@ -39,36 +39,12 @@ function transformDataToParams(data) {
   return str.join('&');
 }
 
-/*
-function getGifCredentials(){
-	var data2 = {
-    "grant_type":"client_credentials",
-    "client_id": gif_client_id,
-    "client_secret": gif_client_secret
-  };
-	var url2 = 'https://api.gfycat.com/v1/oauth/token';
-	return axios.post(url2, data2, {
-    
-  }).then(function(r) {
-    localStorage.setItem('gifaccessToken', r.data.access_token);
-    
-    //callbackFunction();
-  }, function(err) {
-    console.log(err);
-  });
-	
-}
+
 
 
 
 function postImage(imgurl) {
-	document.getElementById('originalImage').src = imgurl;
-	if (localStorage.getItem('imgurl') === imgurl) {
-		altParse();
-		
-		//return localStorage.getItem('data');
-	}else{
-		localStorage.setItem('imgurl', imgurl);
+	
 	
   var accessToken = localStorage.getItem('accessToken');
   var data = {
@@ -85,9 +61,9 @@ function postImage(imgurl) {
     console.log('Sorry, something is wrong: ' + err);
   });
 }
-}
 
-function tagCloud(current){
+
+/*function tagCloud(current){
 	//console.log(localStorage.getItem('popularTags'));
 	//console.log(localStorage.getItem('popularTags') === null);
 		//console.log(localStorage.getItem('popularTags') === '');
@@ -244,7 +220,7 @@ function altParse(){
     console.log('Sorry, something is wrong: ' + err);
   });
   return tags;
-}
+}*/
 
 function parseResponse(resp) {
 	//document.getElementById('third').hidden = false;
@@ -258,30 +234,17 @@ function parseResponse(resp) {
     console.log('Sorry, something is wrong.');
   }
 	
-	document.getElementById('second').hidden = false;
-	document.getElementById('third').hidden = true;
-	//document.getElementById('second').className += "animated zoomIn first";
-    document.getElementById('tags').innerHTML = tags.toString().replace(/,/g, ', ');
-	//console.log(tags[1].toString());
-	var url = 'https://api.gfycat.com/v1test/gfycats/search?search_text=';
-	axios.get(url + tags[0].toString() + ',' + tags[2].toString() + ',' + tags[3].toString()  + ',' + tags[Math.floor(3 + (Math.random()*(tags.length-3)))].toString()).then(function(r) {
-		//console.log(r.data.gfycats[Math.floor((Math.random() * 10))]);
-		if (r.data.gfycats.length > 0){
-		document.getElementById('suggested').src = r.data.gfycats[Math.floor((Math.random() * r.data.gfycats.length))].gifUrl;
-	}else{
-		document.getElementById('suggested').src = 'https://az853139.vo.msecnd.net/static/images/not-found.png';
-	}
-		document.getElementById('third').hidden = false;
-	}, function(err) {
-    console.log('Sorry, something is wrong: ' + err);
-  });
+	var pins = JSON.parse(localStorage.getItem('pins'));
+	pins[1][pins[1].length] = tags;
+	localStorage.setItem('pins',JSON.stringify(pins));
+	addNode(pins[0][pins[0].length - 1], tags);
   return tags;
 }
 
 
 
 
-function generateCloud(tags3,weights){
+/*function generateCloud(tags3,weights){
 	//console.log(tags3.length);
 	var container = document.getElementById('popular');
 	while (container.firstChild) {
@@ -309,7 +272,7 @@ function reset(){
 
 */
 
-function addNode(imgurl){
+function addNode(imgurl, tags){
 	var pinboard = document.getElementById('pinboard');
 	var item = document.createElement("DIV");
 	item.className += "animated fadeIn first col-xs-12 col-sm-4 well";
@@ -318,10 +281,23 @@ function addNode(imgurl){
 	hero.style.padding = "8px";
 	hero.src = imgurl;
 	item.appendChild(hero);
+	var title = document.createElement("H4");
+		var titletext = document.createTextNode('Tags:');
+	title.appendChild(titletext);
+	item.appendChild(title);
+	for(var i = 0; i < tags.length; i++){
+		var textBox = document.createElement("H4");
+		var text = document.createTextNode(tags[i] + ', ');
+		textBox.appendChild(text);
+		textBox.style.fontSize = (8  + "px";
+		textBox.style.display = "inline";
+		item.appendChild(textBox);
+	}
 	pinboard.appendChild(item);
 }
 
 function run(imgurl) {
+	
 	if (localStorage.getItem('pins') === null){
 		var pins = [];
 		pins[0] = [];
@@ -330,8 +306,7 @@ function run(imgurl) {
 	}else{
 		pins[0][pins.length] = imgurl;
 	}
-	localStorage.setItem('pins',JSON.stringify(pins));
-	addNode(imgurl)
+	
   if (Math.floor(Date.now() / 1000) - localStorage.getItem('tokenTimeStamp') > 86400 || localStorage.getItem('accessToken') === null) {
     getCredentials(function() {
   	postImage(imgurl);
@@ -339,4 +314,8 @@ function run(imgurl) {
   } else {
     postImage(imgurl);
   }
+	
+	
+	localStorage.setItem('pins',JSON.stringify(pins));
+	//addNode(imgurl)
 }
