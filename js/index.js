@@ -278,6 +278,7 @@ function addNode(imgurl, tags){
 	item.className += "animated fadeIn first col-xs-12 col-sm-4 well";
 	item.style.margin = "0px";
 	item.style.border = "white 8px solid";
+	item.style.height = "42vh";
 	//item.width -= 8;
 	var hero = document.createElement("IMG");
 	hero.style.width = "100%";
