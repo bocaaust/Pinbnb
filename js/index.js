@@ -1,5 +1,5 @@
 function getCredentials(callbackFunction) {
-	getGifCredentials();
+	//getGifCredentials();
   var data = {
     'grant_type': 'client_credentials',
     'client_id': CLIENT_ID,
@@ -22,6 +22,24 @@ function getCredentials(callbackFunction) {
   });
 }
 
+function transformDataToParams(data) {
+  var str = [];
+  for (var p in data) {
+    if (data.hasOwnProperty(p) && data[p]) {
+      if (typeof data[p] === 'string'){
+        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(data[p]));
+      }
+      if (typeof data[p] === 'object'){
+        for (var i in data[p]) {
+          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(data[p][i]));
+        }
+      }
+    }
+  }
+  return str.join('&');
+}
+
+/*
 function getGifCredentials(){
 	var data2 = {
     "grant_type":"client_credentials",
@@ -41,22 +59,7 @@ function getGifCredentials(){
 	
 }
 
-function transformDataToParams(data) {
-  var str = [];
-  for (var p in data) {
-    if (data.hasOwnProperty(p) && data[p]) {
-      if (typeof data[p] === 'string'){
-        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(data[p]));
-      }
-      if (typeof data[p] === 'object'){
-        for (var i in data[p]) {
-          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(data[p][i]));
-        }
-      }
-    }
-  }
-  return str.join('&');
-}
+
 
 function postImage(imgurl) {
 	document.getElementById('originalImage').src = imgurl;
@@ -304,15 +307,23 @@ function reset(){
 	}
 }
 
+*/
+
+function addNode(imgurl){
+	
+}
+
 function run(imgurl) {
-	if (imgurl !== localStorage.getItem('imgurl')){
-		document.getElementById('output').hidden = false;
-		document.getElementById('cloudSuggestion').hidden = true;
-	//document.getElementById('output').className += "animated zoomIn first";
-		document.getElementById('second').hidden = true;
+	if (localStorage.getItem('pins') === null){
+		var pins = [];
+		pins[0] = [];
+		pins[0][0] = imgurl;
+		pins[1] = [];
 	}else{
-		document.getElementById('output').hidden = false;
+		pins[0][pins.length] = imgurl;
 	}
+	localStorage.setItem('pins',JSON.stringify(pins));
+	addNode(imgurl)
   if (Math.floor(Date.now() / 1000) - localStorage.getItem('tokenTimeStamp') > 86400 || localStorage.getItem('accessToken') === null) {
     getCredentials(function() {
   	postImage(imgurl);
