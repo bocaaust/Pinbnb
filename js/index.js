@@ -277,8 +277,13 @@ function addNode(imgurl, tags){
 	var item = document.createElement("DIV");
 	item.className += "animated fadeIn first col-xs-12 col-sm-4 well";
 	item.style.margin = "0px";
+	if (localStorage.getItem('count') === null){
+		localStorage.setItem('count',0);
+	}
+	item.id = localStorage.getItem('count') + 1;
+	localStorage.setItem('count',item.id);
 	item.style.border = "white 8px solid";
-	item.style.height = "42vh";
+	item.style.height = "50vh";
 	//item.width -= 8;
 	var hero = document.createElement("IMG");
 	hero.style.width = "100%";
@@ -290,10 +295,10 @@ function addNode(imgurl, tags){
 	title.appendChild(titletext);
 	item.appendChild(title);
 	for(var i = 0; i < tags.length; i++){
-		var textBox = document.createElement("H4");
+		var textBox = document.createElement("H5");
 		var text = document.createTextNode(tags[i] + ', ');
 		textBox.appendChild(text);
-		textBox.style.fontSize = (8  + "px");
+		//textBox.style.fontSize = (8  + "px");
 		textBox.style.display = "inline";
 		item.appendChild(textBox);
 	}
