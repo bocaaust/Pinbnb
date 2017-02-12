@@ -238,9 +238,27 @@ function parseResponse(resp) {
 	pins[1][pins[1].length] = tags;
 	localStorage.setItem('pins',JSON.stringify(pins));
 	addNode(pins[0][pins[0].length - 1], tags);
+	updateTopDestination(tags);
   return tags;
 }
 
+function updateTopDestination(tags){
+	if (localStorage.getItem('destination') === null){
+		var destination = [0,0,0,0,0];
+	}else{
+		var destination = JSON.parse(localStorage.getItem('destination'));
+	}
+	for (var i = 0; i< citylist[0].length; i++){
+		for(var j = 0; j < citylist[1][i].length; j++){
+			for (var k = 0; k < tags.length; k++){
+				if (tags[k] === citylist[1][i][j]){
+					destination[i]++;
+				}
+			}
+		}
+	}
+	localStorage.setItem('destination',JSON.stringify(destination));
+}
 
 
 
@@ -307,7 +325,7 @@ function addNode(imgurl, tags){
 	exitButton.className += "btn col-xs-12";
 	exitButton.style.margin = "8px";
 	exitButton.style.marginLeft = "0px";
-	exitButton.onclick = remove(item.id);
+	exitButton.onclick = function() {remove(item.id);};
 	var exitText = document.createTextNode("Unpin");
 	exitButton.appendChild(exitText);
 	item.appendChild(exitButton);
