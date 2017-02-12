@@ -261,6 +261,7 @@ function updateTopDestination(tags){
 	}
 	localStorage.setItem('destination',JSON.stringify(destination));
 	postTopDestination();
+	
 }
 
 
@@ -372,7 +373,33 @@ function postTopDestination(){
 		item.removeChild(item.firstChild);
 		var text = document.createTextNode(citylist[2][top]);
 		item.appendChild(text);
+		searchAirbnb(citylist[0][top]);
 	}
+}
+
+function searchAirbnb(destination){
+
+	
+	var data = {
+    'client_id': '3092nxybyb0otqw18e8nh5nty',
+    'locale':	'en-US',
+		'currency':	'USD',
+		'location': destination
+  };
+  var url='https://api.airbnb.com/v2/search_results'
+
+  return axios.get(url, data, {
+    'transformRequest': [
+      function() {
+        return transformDataToParams(data);
+      }
+    ]
+  }).then(function(r) {
+   
+    callbackFunction();
+  }, function(err) {
+    console.log(err);
+  });
 }
 
 function run(imgurl) {
