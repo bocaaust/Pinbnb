@@ -22,8 +22,6 @@ function getCredentials(callbackFunction) {
   });
 }
 
-function
-
 function transformDataToParams(data) {
   var str = [];
   for (var p in data) {
@@ -343,10 +341,13 @@ function remove(id){
 		if (children[i].id === id){
 			pinboard.removeChild(children[i]);
 			var pins = JSON.parse(localStorage.getItem('pins'));
-			for (var n = i+1; n < pins[1].length; n++){
+			/*for (var n = i+1; n < pins[1].length; n++){
 				pins[1][n-1] = pins[1][n];
-				pins[2][n-2] = pins[2][n];
+				pins[2][n-1] = pins[2][n];
 			}
+			pin[1][pins.length - 1] = */
+			pins[1].splice(i,1);
+			pins[0].splice(i,1);
 			localStorage.setItem('pins',JSON.stringify(pins));
 			break;
 		}
