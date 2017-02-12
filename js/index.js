@@ -304,7 +304,28 @@ function addNode(imgurl, tags){
 	}
 	var exitButton = document.createElement("A");
 	exitButton.className += "btn";
+	exitButton.onclick = remove(item.id);
+	var exitText = document.createTextNode("Unpin");
+	exitButton.appendChild(exitText);
+	item.appendChild(exitButton);
 	pinboard.appendChild(item);
+}
+
+function remove(id){
+	var pinboard = document.getElementById(pinboard);
+	var children = pinboard.children;
+	for (var i = 0; i < children.length; i++) {
+		if (children[i].id === id){
+			pinboard.removeChild(children[i]);
+			var pins = JSON.parse(localStorage.getItem('pins'))
+			for (var n = i+1; n < pins[1].length; n++){
+				pins[1][n-1] = pins[1][n];
+				pins[2][n-2] = pins[2][n];
+			}
+			localStorage.setItem('pins',JSON.stringify(pins));
+			break;
+		}
+	}
 }
 
 function run(imgurl) {
