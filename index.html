@@ -15,6 +15,7 @@
   <script type="text/javascript" src="js/keys.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   <script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/parisienne:n4:default.js" type="text/javascript"></script>
+  
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,6 +23,7 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<script src="https://www.google.com/recaptcha/api.js"></script>
   </head>
   <body>
   <div class="container-fluid" style="overflow-x: hidden;">
@@ -69,7 +71,52 @@
 				  <h4 class="well text-center">Wishbnb is a site to help terminally ill children go on their dream vacation while they still can with their families. When the child likes several photos and pins them to our board, our AI analyzes the selections and picks out a top destination based on trends in the photos. Airbnb suggestions also populate with hotels and homes for the visit with their parents. From there, the listing is crowdfunded by the community so the parents do not incur any expenses and can have a much-deserved vacation. This inclusive web app helps kids in need and reminds us to not take our youth, travel, and families for granted.</h4>
 				  </div>
 			  	<div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 animated fadeIn well" style="margin-bottom: 60px;" id="hotelContent">
-					<h4>Not Enough Information</h4>
+					<h4 class="text-center">Not Enough Information</h4>
+				  </div>
+				   <div  class="col-xs-12 col-xs-offset-0 col-sm-8 col-sm-offset-2">
+					   <h3 class="text-center">Start Crowdfunding</h3>
+<form id="myform">
+<div class="form-group">
+<label>Receipient</label>
+<input type="text" name="Receipient" />
+	</div>
+	<div class="form-group">
+<label>Receipient's Name</label>
+<input type="text" name="to_name" />
+</div>
+	<div class="form-group">
+<label>Your Email Address</label>
+<input type="text" name="reply_to" />
+</div>
+	<div class="form-group">
+<label>Your Child's Name</label>
+<input type="text" name="child_name" />
+</div>
+	<div class="form-group">
+<label>Amount Seeking</label>
+<input type="text" name="amount" id="amount" />
+</div>
+	<div class="form-group">
+<label>Destination</label>
+<input type="text" name="location" id="location" />
+</div>
+	<div class="form-group">
+<label>Your paypal username</label>
+<input type="text" name="paypal" />
+</div>
+	<div class="form-group">
+<label>Your personal message</label>
+<input type="text" name="message" style="width: 100%;" />
+</div>
+	
+<br>
+<div class="g-recaptcha" data-sitekey="6LczQBUUAAAAACZpyyJNhWOsg9XO9xzmtJWAi1fi"></div>
+<button class="btn">
+Send
+</button>
+</form>
+
+
 				  </div>
 			  </div>
 		  </div>
@@ -90,6 +137,12 @@
 			postTopDestination();
 		}
 	  </script>
+	  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+       emailjs.init("user_ln4QaAzwX7ZpX39iwBafJ");
+   })();
+</script>
   </body>
 </html>
 

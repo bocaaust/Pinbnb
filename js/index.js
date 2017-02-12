@@ -373,6 +373,7 @@ function postTopDestination(){
 			if (highest !== 0){
 		
 		var text = document.createTextNode(citylist[2][top]);
+				document.getElementById('location').defaultValue = citylist[2][top];
 		item.appendChild(text);
 				postHotel(top);
 		//searchAirbnb(citylist[0][top]);
@@ -411,6 +412,7 @@ function postHotel(index){
 	
 	var price = document.createElement("H4");
 	var priceText = document.createTextNode(hotels[index][2]);
+	document.getElementById('amount').defaultValue = hotels[index][2];
 	price.appendChild(priceText);
 	item.appendChild(price);
 	var referral = document.createElement("A");
@@ -496,3 +498,28 @@ function run(imgurl) {
 	localStorage.setItem('pins',JSON.stringify(pins));
 	//addNode(imgurl)
 }
+
+var myform = $("form#myform");
+myform.submit(function(event){
+	event.preventDefault();
+
+	var params = myform.serializeArray().reduce(function(obj, item) {
+     obj[item.name] = item.value;
+     return obj;
+  }, {});
+
+  // Change to your service ID, or keep using the default service
+  var service_id = "default_service";
+
+  var template_id = "wishbnb";
+  myform.find("button").text("Sending...");
+  emailjs.send(service_id,template_id,params)
+  	.then(function(){ 
+       alert("Sent!");
+       myform.find("button").text("Send");
+     }, function(err) {
+       alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
+       myform.find("button").text("Send");
+    });
+  return false;
+});
