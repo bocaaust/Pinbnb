@@ -283,7 +283,7 @@ function addNode(imgurl, tags){
 	item.id = localStorage.getItem('count') + 1;
 	localStorage.setItem('count',item.id);
 	item.style.border = "white 8px solid";
-	item.style.height = "50vh";
+	item.style.height = "55vh";
 	//item.width -= 8;
 	var hero = document.createElement("IMG");
 	hero.style.width = "100%";
@@ -302,8 +302,11 @@ function addNode(imgurl, tags){
 		textBox.style.display = "inline";
 		item.appendChild(textBox);
 	}
+	
 	var exitButton = document.createElement("BUTTON");
-	exitButton.className += "btn";
+	exitButton.className += "btn col-xs-12";
+	exitButton.style.margin = "8px";
+	exitButton.style.marginLeft = "0px";
 	exitButton.onclick = remove(item.id);
 	var exitText = document.createTextNode("Unpin");
 	exitButton.appendChild(exitText);
