@@ -44,6 +44,9 @@
     <button onclick="run(document.getElementById('imgurl').value)" style="color:black;" class="btn">Pin It!</button>
 	</div>
 	 	 </div>
+	 	 <div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 well text-center">
+			 <h3 style="display: inline;">Top Destination: </h3><h3 style="display: inline;" id="topDestination">Not Enough Information</h3>
+	  </div>
 	  </div>
 	  <div class="row" style="background-image: url(img/hands.png); background-attachment: fixed; background-position: bottom 0 left 0; background-repeat: repeat-x; background-size: auto 35vh; padding-bottom: 60px;">
 	  <div class="col-xs-10 col-xs-offset-1" id="pinboard">
@@ -63,6 +66,7 @@
 			for (var i = 0; i < pins[1].length; i++){
 				addNode(pins[0][i],pins[1][i]);
 			}
+			postTopDestination();
 		}
 	  </script>
   </body>

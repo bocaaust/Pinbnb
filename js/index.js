@@ -22,6 +22,8 @@ function getCredentials(callbackFunction) {
   });
 }
 
+function
+
 function transformDataToParams(data) {
   var str = [];
   for (var p in data) {
@@ -258,6 +260,7 @@ function updateTopDestination(tags){
 		}
 	}
 	localStorage.setItem('destination',JSON.stringify(destination));
+	postTopDestination();
 }
 
 
@@ -346,6 +349,29 @@ function remove(id){
 			localStorage.setItem('pins',JSON.stringify(pins));
 			break;
 		}
+	}
+}
+
+function postTopDestination(){
+	var destination = localStorage.getItem('destination');
+	if (destination !== null){
+		destination = JSON.parse(destination);
+		if (destination !== [0,0,0,0,0]){
+			var top = destination.length;
+			var highest = 0;
+			for (var i = 0; i< destination.length; i++){
+				if(destination[i] > highest){
+					top = i;
+					highest = destination[i];
+				}
+			}
+		}
+	}
+	if (highest !== 0){
+		var item = document.getElementById('topDestination');
+		item.removeChild(item.firstChild);
+		var text = document.createTextNode(citylist[2][top]);
+		item.appendChild(text);
 	}
 }
 
