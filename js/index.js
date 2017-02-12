@@ -251,7 +251,7 @@ function updateTopDestination(tags){
 	for (var i = 0; i< citylist[0].length; i++){
 		for(var j = 0; j < citylist[1][i].length; j++){
 			for (var k = 0; k < tags.length; k++){
-				if (tags[k] === citylist[1][i][j]){
+				if ((tags[k]).toLowerCase() === (citylist[1][i][j]).toLowerCase()){
 					destination[i]++;
 				}
 			}
