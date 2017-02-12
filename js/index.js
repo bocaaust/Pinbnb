@@ -392,6 +392,9 @@ function postTopDestination(){
 function postHotel(index){
 	//console.log("Finding Hotel");
 	var container = document.getElementById('hotelContent');
+	while (container.firstChild){
+		container.removeChild(container.firstChild);
+	}
 	var box = document.createElement("DIV");
 	box.className+="col-xs-6";
 	var image = document.createElement("IMG");
