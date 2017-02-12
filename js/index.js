@@ -395,7 +395,7 @@ function searchAirbnb(destination){
       }
     ]
   }).then(function(r) {
-   
+   //Write Function that can do something with results
     callbackFunction();
   }, function(err) {
     console.log(err);
