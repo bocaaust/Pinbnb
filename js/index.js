@@ -499,10 +499,10 @@ function run(imgurl) {
 	//addNode(imgurl)
 }
 
-var myform = $("form#myform");
-myform.submit(function(event){
-	event.preventDefault();
-
+var myform = document.getElementById('myform');
+//myform.submit(function(event){
+//	event.preventDefault();
+function submitForm(){
 	var params = myform.serializeArray().reduce(function(obj, item) {
      obj[item.name] = item.value;
      return obj;
@@ -522,4 +522,4 @@ myform.submit(function(event){
        myform.find("button").text("Send");
     });
   return false;
-});
+}

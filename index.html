@@ -77,13 +77,10 @@
 					   <h3 class="text-center">Start Crowdfunding</h3>
 <form id="myform">
 <div class="form-group">
-<label>Receipient</label>
+<label>Receipient Email Address</label>
 <input type="text" name="Receipient" />
 	</div>
-	<div class="form-group">
-<label>Receipient's Name</label>
-<input type="text" name="to_name" />
-</div>
+	
 	<div class="form-group">
 <label>Your Email Address</label>
 <input type="text" name="reply_to" />
@@ -91,6 +88,10 @@
 	<div class="form-group">
 <label>Your Child's Name</label>
 <input type="text" name="child_name" />
+</div>
+<div class="form-group">
+<label>Receipient's Name</label>
+<input type="text" name="to_name" />
 </div>
 	<div class="form-group">
 <label>Amount Seeking</label>
@@ -111,10 +112,12 @@
 	
 <br>
 <div class="g-recaptcha" data-sitekey="6LczQBUUAAAAACZpyyJNhWOsg9XO9xzmtJWAi1fi"></div>
-<button class="btn">
+<button onclick="submitForm()" class="btn">
 Send
 </button>
 </form>
+
+
 
 
 				  </div>
