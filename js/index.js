@@ -374,13 +374,50 @@ function postTopDestination(){
 		
 		var text = document.createTextNode(citylist[2][top]);
 		item.appendChild(text);
-		searchAirbnb(citylist[0][top]);
+				postHotel(top);
+		//searchAirbnb(citylist[0][top]);
 		}else{
+			var hotelInfo = document.getElementById('hotelContent');
+			while (hotelInfo.firstChild){
+				hotelInfo.removeChild(hotelInfo.firstChild);
+			}
 			var text = document.createTextNode("Not Enough Information");
 		item.appendChild(text);
 		}
 	}
 	
+}
+}
+
+function postHotel(index){
+	//console.log("Finding Hotel");
+	var container = document.getElementById('hotelContent');
+	var box = document.createElement("DIV");
+	box.className+="col-xs-6";
+	var image = document.createElement("IMG");
+	image.style.width = "100%";
+	image.src = hotels[index][1];
+	box.appendChild(image);
+	container.appendChild(box);
+	var item = document.createElement("DIV");
+	item.className+="col-xs-6";
+	var title = document.createElement("H3");
+	var titleText = document.createTextNode(hotels[index][0]);
+	title.appendChild(titleText);
+	item.appendChild(title);
+	
+	var price = document.createElement("H4");
+	var priceText = document.createTextNode(hotels[index][2]);
+	price.appendChild(priceText);
+	item.appendChild(price);
+	var referral = document.createElement("A");
+	var textBox = document.createElement("H4");
+	referral.href = hotels[index][3];
+	var referralText = document.createTextNode("See Listing on Airbnb");
+	textBox.appendChild(referralText);
+	referral.appendChild(textBox);
+	item.appendChild(referral);
+	container.appendChild(item);
 }
 
 
@@ -415,7 +452,7 @@ function searchAirbnb(destination){
 		'currency':	'USD',
 		'location': destination
   };
-  var url='https://api.airbnb.com/v2/search_results'
+  var url='https://api.airbnb.com/v2/search_results';
 
   return axios.get(url, data, {
     'transformRequest': [
