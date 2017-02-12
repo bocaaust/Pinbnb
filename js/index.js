@@ -375,7 +375,6 @@ function postTopDestination(){
 		var text = document.createTextNode(citylist[2][top]);
 		item.appendChild(text);
 		searchAirbnb(citylist[0][top]);
-	}
 		}else{
 			var text = document.createTextNode("Not Enough Information");
 		item.appendChild(text);
@@ -405,28 +404,7 @@ function removeDestination(tags){
 	
 }
 	
-	var destination = localStorage.getItem('destination');
-	if (destination !== null){
-		destination = JSON.parse(destination);
-		if (destination !== [0,0,0,0,0]){
-			var top = destination.length;
-			var highest = 0;
-			for (var i = 0; i< destination.length; i++){
-				if(destination[i] > highest){
-					top = i;
-					highest = destination[i];
-				}
-			}
-		}
-	}
-	if (highest !== 0){
-		var item = document.getElementById('topDestination');
-		item.removeChild(item.firstChild);
-		var text = document.createTextNode(citylist[2][top]);
-		item.appendChild(text);
-		searchAirbnb(citylist[0][top]);
-	}
-}
+	
 
 function searchAirbnb(destination){
 
