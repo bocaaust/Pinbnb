@@ -302,7 +302,7 @@ function addNode(imgurl, tags){
 		textBox.style.display = "inline";
 		item.appendChild(textBox);
 	}
-	var exitButton = document.createElement("A");
+	var exitButton = document.createElement("BUTTON");
 	exitButton.className += "btn";
 	exitButton.onclick = remove(item.id);
 	var exitText = document.createTextNode("Unpin");
@@ -312,12 +312,12 @@ function addNode(imgurl, tags){
 }
 
 function remove(id){
-	var pinboard = document.getElementById(pinboard);
+	var pinboard = document.getElementById('pinboard');
 	var children = pinboard.children;
 	for (var i = 0; i < children.length; i++) {
 		if (children[i].id === id){
 			pinboard.removeChild(children[i]);
-			var pins = JSON.parse(localStorage.getItem('pins'))
+			var pins = JSON.parse(localStorage.getItem('pins'));
 			for (var n = i+1; n < pins[1].length; n++){
 				pins[1][n-1] = pins[1][n];
 				pins[2][n-2] = pins[2][n];
