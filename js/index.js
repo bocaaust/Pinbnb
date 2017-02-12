@@ -346,6 +346,7 @@ function remove(id){
 				pins[2][n-1] = pins[2][n];
 			}
 			pin[1][pins.length - 1] = */
+			removeDestination(pins[1][i]);
 			pins[1].splice(i,1);
 			pins[0].splice(i,1);
 			localStorage.setItem('pins',JSON.stringify(pins));
@@ -355,6 +356,55 @@ function remove(id){
 }
 
 function postTopDestination(){
+	var destination = localStorage.getItem('destination');
+	if (destination !== null){
+		destination = JSON.parse(destination);
+		if (destination !== [0,0,0,0,0]){
+			var top = destination.length;
+			var highest = 0;
+			for (var i = 0; i< destination.length; i++){
+				if(destination[i] > highest){
+					top = i;
+					highest = destination[i];
+				}
+			}
+			var item = document.getElementById('topDestination');
+		item.removeChild(item.firstChild);
+			if (highest !== 0){
+		
+		var text = document.createTextNode(citylist[2][top]);
+		item.appendChild(text);
+		searchAirbnb(citylist[0][top]);
+	}
+		}else{
+			var text = document.createTextNode("Not Enough Information");
+		item.appendChild(text);
+		}
+	}
+	
+}
+
+
+function removeDestination(tags){
+	if (localStorage.getItem('destination') === null){
+		var destination = [0,0,0,0,0];
+	}else{
+		var destination = JSON.parse(localStorage.getItem('destination'));
+	}
+	for (var i = 0; i< citylist[0].length; i++){
+		for(var j = 0; j < citylist[1][i].length; j++){
+			for (var k = 0; k < tags.length; k++){
+				if ((tags[k]).toLowerCase() === (citylist[1][i][j]).toLowerCase()){
+					destination[i]--;
+				}
+			}
+		}
+	}
+	localStorage.setItem('destination',JSON.stringify(destination));
+	postTopDestination();
+	
+}
+	
 	var destination = localStorage.getItem('destination');
 	if (destination !== null){
 		destination = JSON.parse(destination);
