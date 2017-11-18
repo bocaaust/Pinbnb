@@ -2,10 +2,9 @@ function getCredentials(callbackFunction) {
 	//getGifCredentials();
   var data = {
     'grant_type': 'client_credentials',
-    'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET
+    'apiKey': API_KEY
   };
-  var url = 'https://api.clarifai.com/v1/token';
+  var url = 'https://api.clarifai.com/v2/token';
 
   return axios.post(url, data, {
     'transformRequest': [
@@ -46,14 +45,21 @@ function transformDataToParams(data) {
 function postImage(imgurl) {
 	
 	
-  var accessToken = localStorage.getItem('accessToken');
-  var data = {
-    'url': imgurl
-  }; 
-  var url = 'https://api.clarifai.com/v1/tag';
-  return axios.post(url, data, {
+ // var accessToken = localStorage.getItem('accessToken');
+  var input = {
+	  'inputs' : {
+	  'data': {
+	  	'image': {
+    		'url': imgurl
+	  	}
+	  }
+	  }
+  };
+  var url = 'https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c';
+  return axios.post(url, input, {
     'headers': {
-      'Authorization': 'Bearer ' + accessToken
+      'Authorization': 'Key ' + API_KEY,
+		'Content-Type': 'application/json'
     }
   }).then(function(r) {
     parseResponse(r.data);
@@ -227,15 +233,19 @@ function parseResponse(resp) {
 	localStorage.setItem('data',JSON.stringify(resp));
   var tags = [];
   if (resp.status_code === 'OK') {
-    var results = resp.results;
-    tags = results[0].result.tag.classes;
+    var results = resp.outputs;
+    tags = results[0].data.concepts;
 	 //tagCloud(results[0].result.tag.classes);
   } else {
     console.log('Sorry, something is wrong.');
   }
 	
 	var pins = JSON.parse(localStorage.getItem('pins'));
-	pins[1][pins[1].length] = tags;
+	var classes = [];
+	for(i=0;i<tags.length;i++){
+		classes.push(tags.name);
+	}
+	pins[1][pins[1].length] = classes;
 	localStorage.setItem('pins',JSON.stringify(pins));
 	addNode(pins[0][pins[0].length - 1], tags);
 	updateTopDestination(tags);
@@ -486,13 +496,13 @@ function run(imgurl) {
 		pins[0][pins.length] = imgurl;
 	}
 	
-  if (Math.floor(Date.now() / 1000) - localStorage.getItem('tokenTimeStamp') > 86400 || localStorage.getItem('accessToken') === null) {
+  /*if (Math.floor(Date.now() / 1000) - localStorage.getItem('tokenTimeStamp') > 86400 || localStorage.getItem('accessToken') === null) {
     getCredentials(function() {
   	postImage(imgurl);
 });
-  } else {
+  } else {*/
     postImage(imgurl);
-  }
+ // }
 	
 	
 	localStorage.setItem('pins',JSON.stringify(pins));
