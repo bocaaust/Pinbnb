@@ -1,4 +1,4 @@
-function getCredentials(callbackFunction) {
+/*function getCredentials(callbackFunction) {
 	//getGifCredentials();
   var data = {
     'grant_type': 'client_credentials',
@@ -19,7 +19,7 @@ function getCredentials(callbackFunction) {
   }, function(err) {
     console.log(err);
   });
-}
+}*/
 
 function transformDataToParams(data) {
   var str = [];
@@ -46,16 +46,17 @@ function postImage(imgurl) {
 	
 	
  // var accessToken = localStorage.getItem('accessToken');
-  var input = {
-	  'inputs' : {
-	  'data': {
-	  	'image': {
-    		'url': imgurl
-	  	}
-	  }
-	  }
-  };
-  var url = 'https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c';
+  var input = {    
+     "inputs": [      
+       {        
+          "data": {          
+             "image": {            
+                "url": imgurl               }    
+          }      
+       }    
+     ]  
+};
+  var url = 'https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/outputs';
   return axios.post(url, input, {
     'headers': {
       'Authorization': 'Key ' + API_KEY,
@@ -232,7 +233,7 @@ function parseResponse(resp) {
 	//document.getElementById('third').hidden = false;
 	localStorage.setItem('data',JSON.stringify(resp));
   var tags = [];
-  if (resp.status_code === 'OK') {
+  if (resp.status.code === 10000) {
     var results = resp.outputs;
     tags = results[0].data.concepts;
 	 //tagCloud(results[0].result.tag.classes);
@@ -243,13 +244,14 @@ function parseResponse(resp) {
 	var pins = JSON.parse(localStorage.getItem('pins'));
 	var classes = [];
 	for(i=0;i<tags.length;i++){
-		classes.push(tags.name);
+		//console.log(JSON.stringify(tags));
+		classes.push(tags[i].name);
 	}
 	pins[1][pins[1].length] = classes;
 	localStorage.setItem('pins',JSON.stringify(pins));
-	addNode(pins[0][pins[0].length - 1], tags);
-	updateTopDestination(tags);
-  return tags;
+	addNode(pins[0][pins[0].length - 1], classes);
+	updateTopDestination(classes);
+  return classes;
 }
 
 function updateTopDestination(tags){
